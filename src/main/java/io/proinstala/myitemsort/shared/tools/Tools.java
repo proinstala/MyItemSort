@@ -1,0 +1,44 @@
+
+package io.proinstala.myitemsort.shared.tools;
+
+import io.proinstala.myitemsort.shared.dtos.UserDTO;
+
+/**
+ * Clase Tools que proporciona métodos utilitarios para el manejo de usuarios y otras operaciones generales.
+ */
+public class Tools {
+
+    /**
+     * Obtiene un mensaje de resultado basado en el estado de un usuario.
+     *
+     * @param userDTO el objeto UserDTO que representa al usuario.
+     * @return un mensaje formateado que indica si el usuario fue encontrado o no, junto con sus detalles.
+     */
+    public static String getMensajeResultado(UserDTO userDTO)
+    {
+        if(userDTO==null)  {
+            return "<b>No se ha encontrado el usuario o los datos introducidos son incorrectos</b> <br/>";
+        } else {
+            return "<b>"+userDTO.getUserName()+" : </b> <span>"+userDTO.getPassword()+"</span> <span>"+userDTO.getRol()+"</span> <br/>";
+        }
+    }
+
+
+    /**
+     * Pausa la ejecución del hilo actual durante un período especificado.
+     *
+     * @param ms el tiempo de espera en milisegundos.
+     */
+    public static void wait(int ms)
+    {
+        try
+        {
+            Thread.sleep(ms);
+        }
+        catch(InterruptedException ex)
+        {
+            Thread.currentThread().interrupt();
+        }
+    }
+}
+
