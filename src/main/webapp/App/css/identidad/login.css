@@ -1,0 +1,157 @@
+
+.contenedor__general--login {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--primario);
+    padding: 3rem;
+}
+
+@media (max-width: 800px) {
+    .contenedor__general--login {
+        height: auto;
+    }
+}
+@media (max-width: 500px) {
+    .contenedor__general--login {
+        padding: 2rem;
+    }
+}
+
+.login {
+    width: 800px;
+    height: 600px;
+    border-radius: 1.5rem;
+    background-color: var(--blanco);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    
+    &.login__password {
+        width: 1000px;
+        height: 640px;
+    }
+}
+@media (max-width: 800px) {
+    .login {
+        height: 100%;
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 1fr;
+        
+        &.login__password {
+            height: 100%;
+        }
+    }
+}
+
+.login__izquierda {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--blanco);
+    border-radius: 1.5rem 0 0 1.5rem;
+    padding: 5rem;
+    
+    h1 {
+        text-align: center;
+        margin-top: 0;
+        margin-bottom: 2rem;
+    }
+    
+    img {
+        width: 12rem;
+    }
+}
+@media (max-width: 800px) {
+    .login__izquierda {
+        border-radius: 1.5rem 1.5rem 0 0;
+        padding-bottom: 5rem;
+    }
+}
+@media (max-width: 500px) {
+    .login__izquierda {
+        padding: 3rem;
+        padding-bottom: 5rem;
+    }
+}
+
+.login__derecha {
+    background-color: var(--fondo_secundario);
+    border-radius: 0 1.5rem 1.5rem 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 5rem;
+    
+    h1 {
+        text-align: center;
+        margin: 0 0 2rem 0;
+    }
+    
+    p {
+        text-align: left;
+    }
+}
+@media (max-width: 800px) {
+    .login__derecha {
+        border-radius: 0 0 1.5rem 1.5rem;
+        padding: 3rem;
+    }
+}
+
+.login__input {
+    width: 100%;
+    margin: 2.5rem 0;
+    
+    button {
+        height: 4rem;
+        background-color: var(--secundario);
+        border: 0.1rem solid var(--bordes_lineas);
+        border-radius: 0.3rem;
+        color: var(--blanco);
+        letter-spacing: 0.1rem;
+
+        &:hover {
+            cursor: pointer;
+            background-color: var(--secundario-brillo);
+            font-weight: 700;
+        }
+    }
+    
+    &:last-child {
+        justify-content: flex-start;
+        padding-top: 3rem;
+        margin: auto 0 0 0;
+    }
+}
+
+/*logo de la parte derecha*/
+.login__logo {
+    width: 30%;
+}
+
+.login__enlaces {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    
+    a {
+        font-size: 1.3rem;
+        color: var(--secundario);
+
+        &:hover {
+            color: var(--primario);
+            font-weight: 700;
+        }
+    }
+}
+
+.imagen-recovery {
+    padding-top: 2rem;
+    font-size: 7em;
+    color:  var(--primario);
+}
+
