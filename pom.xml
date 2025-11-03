@@ -5,7 +5,7 @@
     <artifactId>MyItemSort</artifactId>
     <version>1.0</version>
     <packaging>war</packaging>
-    <name>MyItemSort-1.0</name>
+    <name>MyItemSort</name>
     
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

@@ -1,0 +1,534 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="https://jakarta.ee/xml/ns/jakartaee"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
+   version="6.0">
+    <session-config>
+        <session-timeout>
+            60
+        </session-timeout>
+    </session-config>
+
+    <resource-ref>
+        <description>DB Connection</description>
+        <res-ref-name>jdbc/WHERE_FIND_DATA</res-ref-name>
+        <res-type>javax.sql.DataSource</res-type>
+        <res-auth>Container</res-auth>
+    </resource-ref>
+
+
+<!-- Mapeo de la url de home o index -->
+    <servlet>
+        <servlet-name>home</servlet-name>
+        <jsp-file>/index.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>home</servlet-name>
+        <url-pattern>/dashboard</url-pattern>
+    </servlet-mapping>
+
+
+<!-- Mapeo de las url referentes a la cuenta de administrador -->
+    <servlet>
+        <servlet-name>adminPanel</servlet-name>
+        <jsp-file>/App/web/admin/adminPanel.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>adminPanel</servlet-name>
+        <url-pattern>/admin</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
+        <servlet-name>adminIdentidadListaUsuarios</servlet-name>
+        <jsp-file>/App/web/admin/adminUsers.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>adminIdentidadListaUsuarios</servlet-name>
+        <url-pattern>/admin/users</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>adminIdentidadUserEditar</servlet-name>
+        <jsp-file>/App/web/admin/adminUserEditar.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>adminIdentidadUserEditar</servlet-name>
+        <url-pattern>/admin/users/edit/*</url-pattern>
+    </servlet-mapping>
+
+
+<!-- Mapeo de las url referentes a la cuenta de usuario -->
+    <servlet>
+        <servlet-name>identidadLogin</servlet-name>
+        <jsp-file>/App/web/identidad/identidadUserlogin.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>identidadLogin</servlet-name>
+        <url-pattern>/account/login</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>identidadRegistrar</servlet-name>
+        <jsp-file>/App/web/identidad/identidadUserCrear.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>identidadRegistrar</servlet-name>
+        <url-pattern>/account/registrar</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>identidadModificar</servlet-name>
+        <jsp-file>/App/web/identidad/identidadUserEditar.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>identidadModificar</servlet-name>
+        <url-pattern>/account/modificar</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
+        <servlet-name>identidadPanel</servlet-name>
+        <jsp-file>/App/web/identidad/identidadPanel.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>identidadPanel</servlet-name>
+        <url-pattern>/account</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
+        <servlet-name>identidadRecoveryPassword</servlet-name>
+        <jsp-file>/App/web/identidad/identidadRecoveryPassword.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>identidadRecoveryPassword</servlet-name>
+        <url-pattern>/account/recovery</url-pattern>
+    </servlet-mapping>
+
+
+    <!-- Mapeo de las url referentes a Dirección -->
+    <servlet>
+        <servlet-name>direccionPanel</servlet-name>
+        <jsp-file>/App/web/direccion/direccionPanel.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>direccionPanel</servlet-name>
+        <url-pattern>/direccion</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>direcciones</servlet-name>
+        <jsp-file>/App/web/direccion/direccionList.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>direcciones</servlet-name>
+        <url-pattern>/direccion/direcciones</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>direccionEditar</servlet-name>
+        <jsp-file>/App/web/direccion/direccionEditar.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>direccionEditar</servlet-name>
+        <url-pattern>/direccion/direcciones/edit/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>direccionCrear</servlet-name>
+        <jsp-file>/App/web/direccion/direccionCrear.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>direccionCrear</servlet-name>
+        <url-pattern>/direccion/direcciones/crear</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>provinciaList</servlet-name>
+        <jsp-file>/App/web/direccion/provinciaList.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>provinciaList</servlet-name>
+        <url-pattern>/direccion/provincias</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>provinciaCrear</servlet-name>
+        <jsp-file>/App/web/direccion/provinciaCrear.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>provinciaCrear</servlet-name>
+        <url-pattern>/direccion/provincias/crear</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>provinciaEditar</servlet-name>
+        <jsp-file>/App/web/direccion/provinciaEditar.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>provinciaEditar</servlet-name>
+        <url-pattern>/direccion/provincias/edit/*</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>localidadList</servlet-name>
+        <jsp-file>/App/web/direccion/localidadList.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>localidadList</servlet-name>
+        <url-pattern>/direccion/localidades</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>localidadCrear</servlet-name>
+        <jsp-file>/App/web/direccion/localidadCrear.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>localidadCrear</servlet-name>
+        <url-pattern>/direccion/localidades/crear</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>localidadEditar</servlet-name>
+        <jsp-file>/App/web/direccion/localidadEditar.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>localidadEditar</servlet-name>
+        <url-pattern>/direccion/localidades/edit/*</url-pattern>
+    </servlet-mapping>
+    
+    <!-- Mapeo de las url referentes a Proveedor -->
+    <servlet>
+        <servlet-name>proveedorPanel</servlet-name>
+        <jsp-file>/App/web/proveedor/proveedorPanel.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>proveedorPanel</servlet-name>
+        <url-pattern>/proveedor</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>contactoList</servlet-name>
+        <jsp-file>/App/web/proveedor/contactoList.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>contactoList</servlet-name>
+        <url-pattern>/proveedor/contactos</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>contactoEditar</servlet-name>
+        <jsp-file>/App/web/proveedor/contactoEditar.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>contactoEditar</servlet-name>
+        <url-pattern>/proveedor/contactos/edit/*</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>contactoCrear</servlet-name>
+        <jsp-file>/App/web/proveedor/contactoCrear.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>contactoCrear</servlet-name>
+        <url-pattern>/proveedor/contactos/crear</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>proveedorList</servlet-name>
+        <jsp-file>/App/web/proveedor/proveedorList.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>proveedorList</servlet-name>
+        <url-pattern>/proveedor/proveedores</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>proveedorCrear</servlet-name>
+        <jsp-file>/App/web/proveedor/proveedorCrear.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>proveedorCrear</servlet-name>
+        <url-pattern>/proveedor/proveedores/crear</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>proveedorEditar</servlet-name>
+        <jsp-file>/App/web/proveedor/proveedorEditar.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>proveedorEditar</servlet-name>
+        <url-pattern>/proveedor/proveedores/edit/*</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>proveedorDetalle</servlet-name>
+        <jsp-file>/App/web/proveedor/proveedorDetalle.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>proveedorDetalle</servlet-name>
+        <url-pattern>/proveedor/proveedores/detalle/*</url-pattern>
+    </servlet-mapping>
+    
+    <!-- Mapeo de las url referentes a Almacén -->
+    <servlet>
+        <servlet-name>almacenPanel</servlet-name>
+        <jsp-file>/App/web/almacen/almacenPanel.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>almacenPanel</servlet-name>
+        <url-pattern>/almacen</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>almacenList</servlet-name>
+        <jsp-file>/App/web/almacen/almacenList.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>almacenList</servlet-name>
+        <url-pattern>/almacen/almacenes</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>almacenCrear</servlet-name>
+        <jsp-file>/App/web/almacen/almacenCrear.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>almacenCrear</servlet-name>
+        <url-pattern>/almacen/almacenes/crear</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>almacenEditar</servlet-name>
+        <jsp-file>/App/web/almacen/almacenEditar.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>almacenEditar</servlet-name>
+        <url-pattern>/almacen/almacenes/edit/*</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>almacenDetalle</servlet-name>
+        <jsp-file>/App/web/almacen/almacenDetalle.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>almacenDetalle</servlet-name>
+        <url-pattern>/almacen/almacenes/detalle/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>emplazamientoList</servlet-name>
+        <jsp-file>/App/web/almacen/emplazamientoList.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>emplazamientoList</servlet-name>
+        <url-pattern>/almacen/emplazamientos</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>emplazamientoCrear</servlet-name>
+        <jsp-file>/App/web/almacen/emplazamientoCrear.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>emplazamientoCrear</servlet-name>
+        <url-pattern>/almacen/emplazamientos/crear</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>emplazamientoEditar</servlet-name>
+        <jsp-file>/App/web/almacen/emplazamientoEditar.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>emplazamientoEditar</servlet-name>
+        <url-pattern>/almacen/emplazamientos/edit/*</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>emplazamientoDetalle</servlet-name>
+        <jsp-file>/App/web/almacen/emplazamientoDetalle.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>emplazamientoDetalle</servlet-name>
+        <url-pattern>/almacen/emplazamientos/detalle/*</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>existenciaList</servlet-name>
+        <jsp-file>/App/web/almacen/existenciaList.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>existenciaList</servlet-name>
+        <url-pattern>/almacen/existencias</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>existenciaCrear</servlet-name>
+        <jsp-file>/App/web/almacen/existenciaCrear.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>existenciaCrear</servlet-name>
+        <url-pattern>/almacen/existencias/crear/*</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>existenciaEditar</servlet-name>
+        <jsp-file>/App/web/almacen/existenciaEditar.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>existenciaEditar</servlet-name>
+        <url-pattern>/almacen/existencias/edit/*</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>existenciaDetalle</servlet-name>
+        <jsp-file>/App/web/almacen/existenciaDetalle.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>existenciaDetalle</servlet-name>
+        <url-pattern>/almacen/existencias/detalle/*</url-pattern>
+    </servlet-mapping>
+    
+    <!-- Mapeo de las url referentes a Artículo -->
+    <servlet>
+        <servlet-name>articuloPanel</servlet-name>
+        <jsp-file>/App/web/articulo/articuloPanel.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>articuloPanel</servlet-name>
+        <url-pattern>/articulo</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>articuloList</servlet-name>
+        <jsp-file>/App/web/articulo/articuloList.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>articuloList</servlet-name>
+        <url-pattern>/articulo/articulos</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>articuloCrear</servlet-name>
+        <jsp-file>/App/web/articulo/articuloCrear.jsp</jsp-file>
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>articuloCrear</servlet-name>
+        <url-pattern>/articulo/articulos/crear</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>articuloEditar</servlet-name>
+        <jsp-file>/App/web/articulo/articuloEditar.jsp</jsp-file>
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>articuloEditar</servlet-name>
+        <url-pattern>/articulo/articulos/edit/*</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>articuloDetalle</servlet-name>
+        <jsp-file>/App/web/articulo/articuloDetalle.jsp</jsp-file>
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>articuloDetalle</servlet-name>
+        <url-pattern>/articulo/articulos/detalle/*</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>articuloProveedorCrear</servlet-name>
+        <jsp-file>/App/web/articulo/articuloProveedorAsociar.jsp</jsp-file>
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>articuloProveedorCrear</servlet-name>
+        <url-pattern>/articulo/articulos/articuloProveedorAsociar/*</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>articuloProveedorEditar</servlet-name>
+        <jsp-file>/App/web/articulo/articuloProveedorEditar.jsp</jsp-file>
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>articuloProveedorEditar</servlet-name>
+        <url-pattern>/articulo/articulos/articuloProveedorEditar/*</url-pattern>
+    </servlet-mapping>
+    
+    
+    <servlet>
+        <servlet-name>marcaList</servlet-name>
+        <jsp-file>/App/web/articulo/marcaList.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>marcaList</servlet-name>
+        <url-pattern>/articulo/marcas</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>marcaCrear</servlet-name>
+        <jsp-file>/App/web/articulo/marcaCrear.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>marcaCrear</servlet-name>
+        <url-pattern>/articulo/marcas/crear</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>marcaEditar</servlet-name>
+        <jsp-file>/App/web/articulo/marcaEditar.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>marcaEditar</servlet-name>
+        <url-pattern>/articulo/marcas/edit/*</url-pattern>
+    </servlet-mapping>   
+
+</web-app>

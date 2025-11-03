@@ -1,0 +1,83 @@
+<%-- 
+    Document   : alamcenPanel
+    Created on : 15 ago 2025, 11:36:53
+    Author     : David
+--%>
+
+<%@page import="java.util.List"%>
+<%@page import="io.proinstala.myitemsort.shared.config.AppSettings"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="io.proinstala.myitemsort.shared.controllers.BaseHttpServlet"%>
+<%@page import="io.proinstala.myitemsort.shared.controllers.actions.ActionServer"%>
+<%@page import="io.proinstala.myitemsort.api.identidad.UserSession"%>
+<%@page import="io.proinstala.myitemsort.shared.consts.urls.enums.UrlAdmin"%>
+<%
+    // Se declara e instancia un ActionServer
+    ActionServer actionServer = new ActionServer(request, response);
+
+    // Si no se está logueado se manda al usuario al login.jsp
+    if(UserSession.redireccionarIsUserNotLogIn(actionServer)){
+        // Detiene la ejecución de este servlet
+        return;
+    }
+
+    // Se obtiene la lista de tarjetas
+    List<CardDTO> tarjetas = new ArrayList<>();
+    
+    //las la-boxes - f468 - cajas
+    //las la-archive - archivador caja
+    //las la-stream
+    //la-database - f1c0
+
+    // Se agregan las tarjetas a la lista
+    tarjetas.add(new CardDTO("las la-box", "Almacenes", "Gestione todos los alamcenes.", "almacen/almacenes"));
+    tarjetas.add(new CardDTO("las la-database", "Emplazamientos", "Gestione todos los emplazamientos.", "almacen/emplazamientos"));
+    tarjetas.add(new CardDTO("las la-puzzle-piece", "Existencias", "Gestione todos las existencias.", "almacen/existencias")); //
+
+    // Se agrega la lista a los atributos de la petición
+    request.setAttribute("cards", tarjetas);
+%>
+
+<jsp:include page="/App/web/shared/head.jsp" >
+    <jsp:param name="titleweb" value="MyItemSort - Panel Almacén" />
+</jsp:include>
+
+
+<link href="App/css/general.css?v=<%=AppSettings.APP_VERSION_CSS%>" rel="stylesheet" type="text/css"/>
+<link href="App/css/formulario.css?v=<%=AppSettings.APP_VERSION_CSS%>" rel="stylesheet" type="text/css"/>
+<link href="App/css/cards.css?v=<%=AppSettings.APP_VERSION_CSS%>" rel="stylesheet" type="text/css"/>
+
+
+<div class="contenedor__general">
+    <div class="contenedor">
+        <%@ include file="../shared/cabecera.jsp" %>
+
+        <div class="main">
+
+            <div class="contenedor__formulario formulario--3_filas max-width-120" id="form_busqueda">
+
+                <div class="contenedor__formulario--cabecera conBotones margin-bottom-5">
+                    <div>
+                        <h1>Panel de Almacenes</h1>
+                    </div>
+                    <div class="form__btn_circle">
+                        <button id="btnCancelar" title="Cancelar"><i class="las la-times"></i></button>
+                    </div>
+                </div>
+
+
+                <%@ include file="/App/web/shared/cardContainer.jsp" %>
+            </div> <!-- Fin contenedor__formulario -->
+        </div> <!-- Fin main -->
+
+        <div class="barra__inferior">
+            <p>MyItemSort 1.0</p>
+        </div>
+
+        
+    </div>
+</div>
+            
+<script src="App/js/almacen/almacenPanel.js?v=<%=AppSettings.APP_VERSION_JS%>" type="module" defer></script>
+
+<%@ include file="/App/web/shared/foot.jsp" %>

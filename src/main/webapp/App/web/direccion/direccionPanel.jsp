@@ -1,0 +1,73 @@
+<%@page import="io.proinstala.myitemsort.shared.config.AppSettings"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="io.proinstala.myitemsort.shared.controllers.BaseHttpServlet"%>
+<%@page import="io.proinstala.myitemsort.shared.controllers.actions.ActionServer"%>
+<%@page import="io.proinstala.myitemsort.api.identidad.UserSession"%>
+<%@page import="io.proinstala.myitemsort.shared.consts.urls.enums.UrlAdmin"%>
+<%
+    // Se declara e instancia un ActionServer
+    ActionServer actionServer = new ActionServer(request, response);
+
+    // Si no se está logueado se manda al usuario al login.jsp
+    if(UserSession.redireccionarIsUserNotLogIn(actionServer)){
+        // Detiene la ejecución de este servlet
+        return;
+    }
+
+    // Se obtiene la lista de tarjetas
+    List<CardDTO> tarjetas = new ArrayList<>();
+
+    // Se agregan las tarjetas a la lista
+    tarjetas.add(new CardDTO("las la-map-marker-alt", "Direcciones", "Gestione todas las direcciones.", "direccion/direcciones"));
+    tarjetas.add(new CardDTO("las la-city", "Localidades", "Gestione todas las Localidades.", "direccion/localidades"));
+    tarjetas.add(new CardDTO("las la-globe-americas", "Provincias", "Gestione todas las provincias.", "direccion/provincias"));
+
+    // Se agrega la lista a los atributos de la petición
+    request.setAttribute("cards", tarjetas);
+    
+    //String versionJS = AppSettings
+%>
+
+<jsp:include page="/App/web/shared/head.jsp" >
+    <jsp:param name="titleweb" value="Direccion panel" />
+</jsp:include>
+
+
+<link href="App/css/general.css?v=<%=AppSettings.APP_VERSION_CSS%>" rel="stylesheet" type="text/css"/>
+<link href="App/css/formulario.css?v=<%=AppSettings.APP_VERSION_CSS%>" rel="stylesheet" type="text/css"/>
+<link href="App/css/cards.css?v=<%=AppSettings.APP_VERSION_CSS%>" rel="stylesheet" type="text/css"/>
+
+
+<div class="contenedor__general">
+    <div class="contenedor">
+        <%@ include file="../shared/cabecera.jsp" %>
+
+        <div class="main">
+
+            <div class="contenedor__formulario formulario--3_filas max-width-120" id="form_busqueda">
+
+                <div class="contenedor__formulario--cabecera conBotones margin-bottom-5">
+                    <div>
+                        <h1>Panel de Direcciones</h1>
+                    </div>
+                    <div class="form__btn_circle">
+                        <button id="btnCancelar" title="Cancelar"><i class="las la-times"></i></button>
+                    </div>
+                </div>
+
+
+                <%@ include file="/App/web/shared/cardContainer.jsp" %>
+            </div> <!-- Fin contenedor__formulario -->
+        </div> <!-- Fin main -->
+
+        <div class="barra__inferior">
+            <p>MyItemSort 1.0</p>
+        </div>
+
+        
+    </div>
+</div>
+            
+<script src="App/js/direccion/direccionPanel.js?v=<%=AppSettings.APP_VERSION_JS%>" type="module" defer></script>
+
+<%@ include file="/App/web/shared/foot.jsp" %>

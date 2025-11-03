@@ -1,0 +1,521 @@
+
+package io.proinstala.myitemsort.api.infraestructure.data.services;
+
+import io.proinstala.myitemsort.api.infraestructure.data.interfaces.IDireccionService;
+import io.proinstala.myitemsort.shared.dtos.DireccionDTO;
+import io.proinstala.myitemsort.shared.dtos.LocalidadDTO;
+import io.proinstala.myitemsort.shared.dtos.ProvinciaDTO;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Implementación del servicio para la gestión de direcciones en la base de datos.
+ * 
+ * <p>Esta clase implementa la interfaz {@link IDireccionService} y proporciona métodos para
+ * obtener, buscar y actualizar direcciones en la base de datos. Utiliza sentencias SQL predefinidas
+ * para realizar las operaciones de lectura y escritura sobre la base de datos.</p>
+ * 
+ * <p>Extiende {@link BaseMySql} para proporcionar la funcionalidad de conexión con MySQL.</p>
+ */
+public class DireccionServiceImplement extends BaseMySql implements IDireccionService {
+
+    private static final String SQL_SELECT_COMUN = 
+            """                                       
+            SELECT d.*, l.*, p.* 
+            FROM DIRECCION d INNER JOIN LOCALIDAD l ON(d.localidad_id = l.id) 
+            INNER JOIN PROVINCIA p ON(l.provincia_id = p.id) 
+            """;
+    
+    
+    /**
+     * Sentencia SQL para obtener todas las direcciones.
+     */
+    private static final String SQL_SELECT_DIRECCIONES = "SELECT d.*, l.*, p.* FROM DIRECCION d INNER JOIN LOCALIDAD l ON(d.localidad_id = l.id) INNER JOIN PROVINCIA p ON(l.provincia_id = p.id) WHERE d.activo = TRUE;"; 
+    
+    /**
+     * Sentencia SQL para actualizar una dirección específica por su identificador.
+     */
+    private static final String SQL_UPDATE_DIRECCION = "UPDATE DIRECCION SET calle = ?, numero = ?, codigo_postal = ?, localidad_id = ? WHERE id = ?;";
+    
+    /**
+     * Sentencia SQL para crear una nueva dirección.
+     */
+    private static final String SQL_CREATE_DIRECCION = "INSERT INTO DIRECCION (calle, numero, codigo_postal, localidad_id) VALUES (?,?,?,?);";
+    
+    /**
+     * Sentencia SQL para marcar una dirección como eliminada.
+     */
+    private static final String SQL_DELETE_DIRECCION = "UPDATE DIRECCION SET activo=false WHERE id=?;";
+    
+    /**
+     * Transforma un objeto {@link ResultSet} en una instancia de {@link DireccionDTO}.
+     *
+     * <p>Este método extrae los valores de las columnas asociadas a una dirección, incluyendo
+     * la calle, número, código postal, localidad, provincia y el estado activo, del {@link ResultSet}.
+     * Además, construye objetos anidados de {@link LocalidadDTO} y {@link ProvinciaDTO} 
+     * para representar la jerarquía de datos complejos.</p>
+     *
+     * @param rs el {@link ResultSet} que contiene los datos de la consulta SQL.
+     * @return una instancia de {@link DireccionDTO} con los datos extraídos del {@link ResultSet}.
+     * @throws SQLException si ocurre un error al acceder a los datos del {@link ResultSet}.
+     * @throws IllegalArgumentException si el {@link ResultSet} es nulo.
+     */
+    private static DireccionDTO getDireccionFromResultSet(ResultSet rs) throws SQLException {
+       
+        return new DireccionDTO(
+                rs.getInt("d.id"),
+                rs.getString("d.calle"),
+                (rs.getString("d.numero") != null) ? rs.getString("d.numero") : "",
+                (Integer)rs.getObject("d.codigo_postal"),
+                new LocalidadDTO(
+                        rs.getInt("l.id"), 
+                        rs.getString("l.nombre"),
+                        new ProvinciaDTO(
+                                rs.getInt("p.id"), 
+                                rs.getString("p.nombre")
+                        )
+                ),
+                rs.getBoolean("activo")
+        );
+    }
+    
+    /**
+     * Obtiene una instancia de {@link DireccionDTO} a partir de su identificador único.
+     *
+     * Este método realiza una consulta a la base de datos para obtener una dirección 
+     * específica utilizando el identificador proporcionado. Utiliza una conexión a la base de 
+     * datos y un {@link PreparedStatement} para ejecutar la consulta SQL definida por 
+     * {@code SQL_SELECT_DIRECCION_BY_ID}. El resultado de la consulta se procesa con un 
+     * {@link ResultSet} para construir el objeto {@link DireccionDTO} correspondiente.
+     *
+     * Si no se encuentra ninguna dirección con el identificador especificado, el método 
+     * devuelve {@code null}. El método maneja automáticamente los recursos de conexión y 
+     * declaración mediante bloques try-with-resources, lo que asegura el cierre adecuado 
+     * de los recursos incluso en caso de error.
+     *
+     * @param idDireccion el identificador único de la dirección a buscar.
+     * @return una instancia de {@link DireccionDTO} si se encuentra la dirección, o {@code null} si no se encuentra.
+     */
+    @Override
+    public DireccionDTO getDireccionById(int idDireccion) {
+        DireccionDTO direccionDTO = null;
+        
+        StringBuilder sql = new StringBuilder(SQL_SELECT_COMUN);
+        sql.append("WHERE d.id = ?;");
+     
+        
+        try (Connection conexion = getConnection(); 
+                PreparedStatement ps = conexion.prepareStatement(sql.toString())) {
+            
+            ps.setInt(1, idDireccion);
+            
+            //Ejecutar la consulta y obtener el ResultSet dentro de otro bloque try-with-resources
+            try (ResultSet resultSet = ps.executeQuery()) {
+                while (resultSet.next()) {
+                    direccionDTO = getDireccionFromResultSet(resultSet); //Crear un objeto DireccionDTO a partir del ResultSet
+                }
+            }
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return direccionDTO;
+    }
+
+    
+    /**
+     * Busca y devuelve una lista de direcciones que coincidan con los criterios
+     * de búsqueda especificados.
+     *
+     * Este método realiza una consulta a la base de datos para obtener
+     * direcciones que coincidan con el nombre de la calle proporcionado, el
+     * identificador de localidad y el identificador de provincia, si son
+     * válidos. Construye dinámicamente la consulta SQL utilizando un
+     * {@link StringBuilder} y agrega condiciones de búsqueda según los
+     * parámetros proporcionados.
+     *
+     * La consulta utiliza LIKE para buscar coincidencias parciales en el nombre
+     * de la calle, y utiliza los identificadores de localidad y provincia si se
+     * proporcionan valores válidos (distintos de -1). Los recursos de conexión,
+     * declaración y resultado se manejan mediante bloques try-with-resources
+     * para asegurar el cierre adecuado.
+     *
+     * Si ocurre una excepción SQL, esta se captura y se imprime la traza de la
+     * pila. En caso de error, el método devuelve {@code null} para indicar que
+     * no se pudo completar la operación.
+     *
+     * @param calle el nombre (o parte del nombre) de la calle a buscar. Se
+     * utiliza LIKE para coincidencias parciales.
+     * @param IdLocalidad el identificador de la localidad para filtrar las
+     * direcciones, o -1 si no se debe filtrar por localidad.
+     * @param IdProvincia el identificador de la provincia para filtrar las
+     * direcciones, o -1 si no se debe filtrar por provincia.
+     * @return una lista de {@link DireccionDTO} que cumplen con los criterios
+     * de búsqueda, o {@code null} si ocurre un error.
+     */
+    @Override
+    public List<DireccionDTO> findDirecciones(String calle, int IdLocalidad, int IdProvincia) {
+        List<DireccionDTO> listaDireccionesDTO = new ArrayList<>();
+        
+        StringBuilder sentenciaSQL = new StringBuilder(SQL_SELECT_COMUN);
+        
+        sentenciaSQL.append(" WHERE d.activo = TRUE");
+
+        //Agregar la cláusula WHERE y la condicion de busqueda por nombre de calle
+        sentenciaSQL.append(" AND d.calle LIKE ?");
+
+        //Agregar condicion de busqueda de localidad si se pasa un valor valido de id de localidad.
+        if (IdLocalidad != -1) {
+            sentenciaSQL.append(" AND l.id = ?");
+        }
+        
+        //Agregar condicion de busqueda de provincia si se pasa un valor valido de id de provincia.
+        if (IdProvincia != -1) {
+            sentenciaSQL.append(" AND p.id = ?");
+        }
+        
+        // Uso de try-with-resources para garantizar el cierre de recursos
+        try (Connection conexion = getConnection(); 
+                PreparedStatement ps = conexion.prepareStatement(sentenciaSQL.toString())) {
+
+                int index = 1;
+                ps.setString(index++, '%' + calle + '%');
+                
+                if (IdLocalidad != -1) {
+                    ps.setInt(index++, IdLocalidad);
+                }
+
+                if (IdProvincia != -1) {
+                    ps.setInt(index++, IdProvincia);
+                }
+                
+                //Ejecutar la consulta y obtener el ResultSet dentro de otro bloque try-with-resources
+                try (ResultSet resultSet = ps.executeQuery()) {
+                    while (resultSet.next()) {
+                        DireccionDTO direccionDTO = getDireccionFromResultSet(resultSet); //Crear un objeto DireccionDTO a partir del ResultSet
+                        
+                        // Si la direccion es válida, agregarla a la lista
+                        if (direccionDTO != null) {
+                            listaDireccionesDTO.add(direccionDTO);
+                        }
+                    }
+                }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null; //Devolver null para indicar un error
+        }
+
+        return listaDireccionesDTO;
+    }
+    
+    /**
+     * Devuelve una lista con todas las direcciones.
+     *
+     * @return una lista de {@link DireccionDTO} con todas las direcciones.
+     */
+    @Override
+    public List<DireccionDTO> getDirecciones() {
+        List<DireccionDTO> listaDireccionesDTO = new ArrayList<>();
+        
+        StringBuilder sentenciaSQL = new StringBuilder(SQL_SELECT_COMUN);
+        
+        sentenciaSQL.append(" WHERE d.activo = true");
+        
+        // Uso de try-with-resources para garantizar el cierre de recursos
+        try (Connection conexion = getConnection(); 
+                PreparedStatement ps = conexion.prepareStatement(sentenciaSQL.toString())) {
+                
+                //Ejecutar la consulta y obtener el ResultSet dentro de otro bloque try-with-resources
+                try (ResultSet resultSet = ps.executeQuery()) {
+                    while (resultSet.next()) {
+                        DireccionDTO direccionDTO = getDireccionFromResultSet(resultSet); //Crear un objeto DireccionDTO a partir del ResultSet
+                        
+                        // Si la direccion es válida, agregarla a la lista
+                        if (direccionDTO != null) {
+                            listaDireccionesDTO.add(direccionDTO);
+                        }
+                    }
+                }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null; //Devolver null para indicar un error
+        }
+
+        return listaDireccionesDTO;
+    }
+
+    
+    /**
+     * Actualiza la información de una dirección en la base de datos.
+     *
+     * Este método actualiza los datos de una dirección existente en la base de datos 
+     * utilizando los valores proporcionados en el objeto {@link DireccionDTO}. Se establece 
+     * la conexión con la base de datos y se ejecuta una declaración preparada para actualizar 
+     * la dirección. Utiliza un bloque try-with-resources para el cierre automático de los 
+     * recursos, garantizando una gestión adecuada de la conexión y del PreparedStatement.
+     *
+     * Devuelve {@code true} si la actualización fue exitosa (al menos una fila afectada), 
+     * o {@code false} si no se realizó ninguna actualización o si ocurrió un error.
+     *
+     * @param direccionDTO el objeto {@link DireccionDTO} que contiene los datos actualizados de la dirección.
+     * @return {@code true} si la actualización se realizó con éxito, o {@code false} si ocurrió un error o no se actualizó ninguna fila.
+     */
+    @Override
+    public boolean updateDireccion(DireccionDTO direccionDTO) {
+        
+        // Verificar que el objeto de entrada no sea nulo
+        if (direccionDTO == null) {
+            return false;
+        }
+        
+        // Contador de filas afectadas
+        int rowsAffected = 0;
+        
+        // Usar try-with-resources para asegurar el cierre automático de recursos
+        try (Connection connection = getConnection();
+             PreparedStatement ps = connection.prepareStatement(SQL_UPDATE_DIRECCION)) {
+
+            // Establecer los parámetros en el PreparedStatement
+            ps.setString(1, direccionDTO.getCalle());
+            ps.setString(2, direccionDTO.getNumero());
+            ps.setObject(3, direccionDTO.getCodigoPostal());
+            ps.setInt(4, direccionDTO.getLocalidad().getId());
+            ps.setInt(5, direccionDTO.getId());
+            
+            // Ejecutar la actualización y obtener el número de filas afectadas
+            rowsAffected = ps.executeUpdate();
+        
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        // Retornar true si se ha hecho en update
+        return rowsAffected > 0;
+    }
+    
+    /**
+     * Elimina una dirección de la base de datos marcándola como inactiva.
+     * 
+     * <p>Este método actualiza el campo {@code activo} de una dirección específica
+     * para marcarla como eliminada, lo que implica que no será recuperada en futuras
+     * consultas a menos que se consulte explícitamente por direcciones inactivas.
+     * La operación se realiza utilizando una declaración preparada para ejecutar
+     * la sentencia SQL definida por {@code SQL_DELETE_DIRECCION}.</p>
+     *
+     * <p>El método utiliza un bloque try-with-resources para gestionar la conexión y el 
+     * {@link PreparedStatement}, asegurando el cierre adecuado de los recursos, incluso 
+     * en caso de error.</p>
+     *
+     * @param direccionId el identificador de la dirección que se desea eliminar.
+     * @return {@code true} si la dirección fue marcada como eliminada exitosamente,
+     *         {@code false} si no se realizó ninguna modificación o si ocurrió un error.
+     */
+    @Override
+    public boolean deleteDireccion(int direccionId) {
+        
+        // Contador de filas afectadas
+        int rowsAffected = 0;
+        
+        // Usar try-with-resources para asegurar el cierre automático de recursos
+        try (Connection connection = getConnection();
+             PreparedStatement ps = connection.prepareStatement(SQL_DELETE_DIRECCION)) {
+
+            // Establecer los parámetros en el PreparedStatement
+            ps.setInt(1, direccionId);
+            
+            // Ejecutar la actualización y obtener el número de filas afectadas
+            rowsAffected = ps.executeUpdate();
+        
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        // Retornar true si se ha hecho en update
+        return rowsAffected > 0;
+    }
+
+    /**
+     * Crea una nueva dirección en la base de datos.
+     *
+     * <p>Este método inserta una nueva dirección en la base de datos utilizando los valores 
+     * proporcionados en el objeto {@link DireccionDTO}. La inserción se realiza mediante una 
+     * declaración preparada, y el ID generado automáticamente por la base de datos se recupera 
+     * y se asigna al objeto {@link DireccionDTO}. Si la inserción es exitosa, el objeto 
+     * {@link DireccionDTO} se devuelve con el ID asignado. En caso de error, se captura la 
+     * excepción y se devuelve {@code null}.</p>
+     *
+     * <p>El método utiliza un bloque try-with-resources para asegurar el cierre automático de 
+     * los recursos de conexión y declaración, incluso en caso de error.</p>
+     *
+     * @param direccionDTO el objeto {@link DireccionDTO} que contiene los datos de la dirección 
+     *                     a insertar. El objeto debe tener los valores de calle, número, código 
+     *                     postal y el ID de la localidad.
+     * @return el objeto {@link DireccionDTO} con el ID asignado si la inserción fue exitosa, 
+     *         o {@code null} si ocurrió un error durante la inserción.
+     */
+    @Override
+    public DireccionDTO createDireccion(DireccionDTO direccionDTO) {
+        try (Connection connection = getConnection(); PreparedStatement ps = connection.prepareStatement(
+                SQL_CREATE_DIRECCION,
+                Statement.RETURN_GENERATED_KEYS)) {
+
+            // Configura los parámetros del PreparedStatement
+            ps.setString(1, direccionDTO.getCalle());
+            ps.setString(2, direccionDTO.getNumero());
+            ps.setObject(3, direccionDTO.getCodigoPostal());
+            ps.setInt(4, direccionDTO.getLocalidad().getId());
+
+            // Ejecuta la inserción
+            int affectedRows = ps.executeUpdate();
+
+            if (affectedRows > 0) {
+                // Obtiene el ID generado
+                try (ResultSet generatedKeys = ps.getGeneratedKeys()) {
+                    if (generatedKeys.next()) {
+                        int generatedId = generatedKeys.getInt(1);
+                        direccionDTO.setId(generatedId); // Asigna el ID generado al objeto
+                    }
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null; // Manejo de errores
+        }
+
+        return direccionDTO; // Devuelve el objeto con el ID asignado
+    }
+    
+    /**
+     * Obtiene una lista de direcciones activas que no están asociadas a ningún
+     * almacén ni proveedor.
+     *
+     * <p>
+     * Este método busca en la base de datos todas las direcciones que estén
+     * marcadas como activas y que no estén siendo utilizadas actualmente en las
+     * tablas {@code ALMACEN} o {@code PROVEEDOR}. Esto es útil, por ejemplo,
+     * para ofrecer una lista de direcciones disponibles que pueden asignarse a
+     * nuevas entidades.</p>
+     *
+     * <p>
+     * La consulta se realiza mediante una subconsulta con {@code NOT IN} que
+     * verifica que la dirección no esté presente en ninguna de las dos tablas
+     * referenciadas.</p>
+     *
+     * @return una lista de {@link DireccionDTO} que representan direcciones
+     * libres, o {@code null} si ocurre un error al ejecutar la consulta.
+     */
+    @Override
+    public List<DireccionDTO> findDireccionesLibres() {
+        List<DireccionDTO> listaDireccionesDTO = new ArrayList<>();
+        
+        StringBuilder sentenciaSQL = new StringBuilder(SQL_SELECT_COMUN);
+        
+        sentenciaSQL.append(" WHERE d.activo = true");
+        
+        sentenciaSQL.append("""
+            AND d.id NOT IN (
+                SELECT direccion_id FROM ALMACEN WHERE direccion_id IS NOT NULL
+                UNION
+                SELECT direccion_id FROM PROVEEDOR WHERE direccion_id IS NOT NULL
+                )
+        """);
+        
+        // Uso de try-with-resources para garantizar el cierre de recursos
+        try (Connection conexion = getConnection(); 
+                PreparedStatement ps = conexion.prepareStatement(sentenciaSQL.toString())) {
+                
+                //Ejecutar la consulta y obtener el ResultSet dentro de otro bloque try-with-resources
+                try (ResultSet resultSet = ps.executeQuery()) {
+                    while (resultSet.next()) {
+                        DireccionDTO direccionDTO = getDireccionFromResultSet(resultSet); //Crear un objeto DireccionDTO a partir del ResultSet
+                        
+                        // Si la direccion es válida, agregarla a la lista
+                        if (direccionDTO != null) {
+                            listaDireccionesDTO.add(direccionDTO);
+                        }
+                    }
+                }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null; //Devolver null para indicar un error
+        }
+
+        return listaDireccionesDTO;
+    }
+
+    /**
+     * Obtiene una lista de direcciones activas no utilizadas o que coincidan
+     * con el ID especificado.
+     *
+     * <p>
+     * Este método es similar a {@link #findDireccionesLibres()}, pero permite
+     * incluir explícitamente una dirección específica (por su identificador),
+     * incluso si ya está asociada a un almacén o proveedor. Esto resulta útil
+     * cuando se desea verificar o permitir la reutilización de una dirección
+     * que ya está en uso.</p>
+     *
+     * <p>
+     * La consulta devuelve todas las direcciones activas que no están siendo
+     * usadas, más la dirección con ID igual al parámetro proporcionado,
+     * independientemente de su uso.</p>
+     *
+     * @param direccion_id el identificador de la dirección que debe incluirse
+     * en los resultados, aunque ya esté asociada.
+     * @return una lista de {@link DireccionDTO} que representa las direcciones
+     * disponibles o seleccionadas, o {@code null} si ocurre un error durante la
+     * consulta.
+     */
+    @Override
+    public List<DireccionDTO> findDireccionesLibres(int direccion_id) {
+        List<DireccionDTO> listaDireccionesDTO = new ArrayList<>();
+    
+        StringBuilder sentenciaSQL = new StringBuilder(SQL_SELECT_COMUN);
+
+        // Agregar condición principal: activo = true
+        sentenciaSQL.append(" WHERE d.activo = true");
+
+        // Agregar condición para obtener direcciones no utilizadas, o que sean la que estamos permitiendo (por ID)
+        sentenciaSQL.append("""
+            AND (
+                d.id NOT IN (
+                    SELECT direccion_id FROM ALMACEN WHERE direccion_id IS NOT NULL
+                    UNION
+                    SELECT direccion_id FROM PROVEEDOR WHERE direccion_id IS NOT NULL
+                )
+                OR d.id = ?
+            )
+        """);
+
+        try (Connection conexion = getConnection();
+             PreparedStatement ps = conexion.prepareStatement(sentenciaSQL.toString())) {
+
+            // Establecer el valor del parámetro ? (el id que queremos incluir)
+            ps.setInt(1, direccion_id);
+
+            try (ResultSet resultSet = ps.executeQuery()) {
+                while (resultSet.next()) {
+                    DireccionDTO direccionDTO = getDireccionFromResultSet(resultSet);
+                    if (direccionDTO != null) {
+                        listaDireccionesDTO.add(direccionDTO);
+                    }
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+        return listaDireccionesDTO;
+    }
+    
+}

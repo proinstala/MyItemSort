@@ -1,17 +1,21 @@
-<%-- 
-    Document   : index
-    Created on : 31 oct 2025, 8:15:13
-    Author     : David
---%>
-
+<%@page import="io.proinstala.myitemsort.shared.config.AppSettings"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-    </head>
-    <body>
-        <h1>Hello World!</h1>
-    </body>
-</html>
+<%@page import="io.proinstala.myitemsort.shared.controllers.actions.ActionServer"%>
+<%@page import="io.proinstala.myitemsort.api.identidad.UserSession"%>
+<%
+    // Si no se está logueado se manda al usuario al login.jsp
+    if(UserSession.redireccionarIsUserNotLogIn(new ActionServer(request, response))){
+        // Detiene la ejecución de este servlet
+        return;
+    }
+%>
+
+<jsp:include page="App/web/shared/head.jsp" >
+    <jsp:param name="titleweb" value="MyItemSort - Index" />
+</jsp:include>
+
+
+<%@ include file="App/web/dashboard/dashboard.jsp" %>
+
+
+<%@ include file="App/web/shared/foot.jsp" %>

@@ -1,0 +1,105 @@
+
+/* Sweet Alert 2 */
+.swal-container {
+   width: 100%;
+}
+
+.swal-titulo {
+    font-size: 4rem;
+    color: var(--primario);
+}
+
+
+.swal-boton {
+    font-size: 2rem !important;
+    background-color: var(--secundario) !important;
+    cursor: pointer !important; /*No funciona*/
+    
+    &:hover {
+        background-color: var(--secundario-brillo) !important;
+    }                   
+    
+    &:focus {
+         box-shadow: 0 0 0 3px rgba(110, 120, 129, 0.5) !important;
+    }
+}
+
+.swal-boton-deny {
+    font-size: 2rem !important;
+    background-color: var(--enfasis) !important;
+    
+    &:hover {
+        background-color: var(--enfasis-brillo) !important;
+    }
+    
+    &:focus {
+        
+    }
+}
+
+.swal-boton-cancel {
+    font-size: 2rem !important;
+    background-color: var(--enfasis) !important;
+    
+    &:hover {
+        background-color: var(--enfasis-brillo) !important;
+    }
+    
+    &:focus {
+        
+    }
+}
+
+
+.swal-contenido {
+    font-size: 2rem;
+}
+
+.html_swal {
+    font-size: 3rem;
+    color: rgb(10, 104, 104);
+}
+
+.custom-popup {
+    width: 40%!important;
+}
+@media (max-width: 800px) {
+    .custom-popup {
+        width: 80%!important;
+    }
+}
+
+.custom-popup .swal2-icon.swal2-success,
+.custom-popup .swal2-icon.swal2-error,
+.custom-popup .swal2-icon.swal2-warning,
+.custom-popup .swal2-icon.swal2-info,
+.custom-popup .swal2-icon.swal2-question {
+    font-size: 2rem; /* tamaño para icono de success */
+}
+
+
+/* alerta con animación de carga */
+
+.swal2-html-container:has(.sweet_loader){
+    overflow: hidden;
+}
+
+
+.sweet_loader {
+	width: 140px;
+	height: 140px;
+	margin: 0 auto;
+	animation-duration: 0.5s;
+	animation-timing-function: linear;
+	animation-iteration-count: infinite;
+	animation-name: ro;
+	transform-origin: 50% 50%;
+	transform: rotate(0) translate(0,0);
+}
+@keyframes ro {
+	100% {
+		transform: rotate(-360deg) translate(0,0);
+	}
+}
+
+

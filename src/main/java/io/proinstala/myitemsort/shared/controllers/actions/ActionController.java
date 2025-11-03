@@ -1,0 +1,64 @@
+package io.proinstala.myitemsort.shared.controllers.actions;
+
+/**
+ * Clase ActionController que representa un controlador de acciones con varios parámetros.
+ *
+ * @param fullUri     la URI completa de la acción.
+ * @param uri         la URI parcial de la acción.
+ * @param actionType  el tipo de acción.
+ * @param parametros  los parámetros de la acción.
+ * @param server      el servidor de acciones asociado.
+ */
+public record ActionController(String fullUri, String uri, Object actionType, String[] parametros, ActionServer server) {
+
+    /**
+     * Obtiene un valor entero de los parámetros en una posición específica.
+     *
+     * @param index el índice del parámetro en el arreglo.
+     * @return el valor entero del parámetro en la posición especificada, o -1 si ocurre una excepción de formato.
+     */
+    public int getIntFromParametros(int index)
+    {
+        int id = -1;
+        try {
+            if(parametros != null && parametros.length > index) {
+                id = Integer.parseInt(parametros[index]);
+            }
+            
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        }
+
+        return id;
+    }
+
+    /**
+     * Obtiene un valor boolean de los parámetros en una posición específica.
+     *
+     * @param index el índice del parámetro en el arreglo.
+     * @return el valor entero del parámetro en la posición especificada, o -1 si ocurre una excepción de formato.
+     */
+    public Boolean getBooleanFromParametros(int index)
+    {
+        int resultado;
+        try
+        {
+            resultado = getIntFromParametros(index);
+        }
+        catch (NumberFormatException e)
+        {
+            resultado = -1;
+        }
+
+        return resultado == 1;
+    }
+
+    public String  getServerUrlBase()
+    {
+        return server.request().getScheme() + "://" +
+            server.request().getServerName() +
+            ":" + server.request().getServerPort() +
+            server.request().getContextPath();
+    }
+
+}

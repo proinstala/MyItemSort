@@ -1,0 +1,232 @@
+
+/*
+ICONOS DE APLICACION.
+https://icons8.com/line-awesome
+*/
+
+:root {
+  --breadcrumb-color-fondo: var(--primario);
+  --breadcrumb-color:   var(--blanco);
+
+
+  --breadcrumb-color-hover:  var(--secundario);
+  --breadcrumb-color-hover-home:  var(--secundario-brillo);
+
+  --breadcrumb-size: 30px;
+  --breadcrumb-font-size : 20px;
+  --breadcrumb-font-color : var(--primario);
+  --breadcrumb-font-color-hover : var(--blanco);
+}
+
+.breadcrumb-container {
+    height: 1.7em;
+    margin-top: -19px;
+    z-index: 10;
+}
+
+
+.breadcrumb li[data-id="account"] a span.icon i::before {
+    content: "\f007";
+}
+
+.breadcrumb li[data-id="modificar"] a span.icon i::before {
+    content: "\f4ff";
+}
+
+
+.breadcrumb li[data-id="admin"] a span.icon i::before {
+    content: "\f505";
+}
+
+.breadcrumb li[data-id="users"] a span.icon i::before {
+    content: "\f0c0";
+}
+
+.breadcrumb li[data-id="edit"] a span.icon i::before {
+    content: "\f303";
+}
+
+.breadcrumb li[data-id="crear"] a span.icon i::before {
+    content: "\f055";
+}
+
+.breadcrumb li[data-id="detalle"] a span.icon i::before {
+    content: "\f129";
+}
+
+.breadcrumb li[data-id="articuloProveedorAsociar"] a span.icon i::before {
+    content: "\f248";
+}
+
+.breadcrumb li[data-id="articuloProveedorEditar"] a span.icon i::before {
+    content: "\f303";
+}
+
+
+
+.breadcrumb li[data-id="direccion"] a span.icon i::before {
+    content: "\f5a0";
+}
+
+.breadcrumb li[data-id="direcciones"] a span.icon i::before {
+    content: "\f041";
+}
+
+.breadcrumb li[data-id="edit"]:has(+ li[data-id="direcciones"]) a span.icon i::before {
+  content: "\f303";
+}
+
+.breadcrumb li[data-id="localidades"] a span.icon i::before {
+    content: "\f64f";
+}
+.breadcrumb li[data-id="provincias"] a span.icon i::before {
+    content: "\f57d";
+}
+
+
+
+/*Proveedor*/
+.breadcrumb li[data-id="proveedor"] a span.icon i::before {
+    content: "\f54f";
+}
+.breadcrumb li[data-id="proveedores"] a span.icon i::before {
+    content: "\f54e";
+}
+.breadcrumb li[data-id="contactos"] a span.icon i::before {
+    content: "\f2c2";
+}
+
+/*Almacén*/
+.breadcrumb li[data-id="almacen"] a span.icon i::before {
+    content: "\f494";
+}
+.breadcrumb li[data-id="almacenes"] a span.icon i::before {
+    content: "\f466";
+}
+.breadcrumb li[data-id="emplazamientos"] a span.icon i::before {
+    content: "\f1c0";
+}
+.breadcrumb li[data-id="existencias"] a span.icon i::before {
+    content: "\f12e";
+}
+
+/*Artículo*/
+.breadcrumb li[data-id="articulo"] a span.icon i::before {
+    content: "\f86d";
+}
+.breadcrumb li[data-id="articulos"] a span.icon i::before {
+    content: "\f61f";
+}
+.breadcrumb li[data-id="marcas"] a span.icon i::before {
+    content: "\f1f9";
+}
+
+
+
+
+/* Breadcrumb styles */
+ul.breadcrumb {
+    display: inline-block;
+    list-style: none;
+}
+
+ul.breadcrumb li {
+    float: right;
+    padding: calc(var(--breadcrumb-size) / 10);
+    background-color: var(--breadcrumb-color-fondo);
+    border-radius: var(--breadcrumb-size);
+    position: relative;
+    margin-left: calc(-1 * var(--breadcrumb-size));
+    transition: all 0.2s;
+    margin-top: 6px;
+}
+
+ul.breadcrumb li a {
+    overflow: hidden;
+    border-radius: var(--breadcrumb-size);
+    transition: all 0.3s;
+    text-decoration: none;
+    height: var(--breadcrumb-size);
+    color: var(--breadcrumb-font-color);
+    background-color: var(--breadcrumb-color);
+    text-align: center;
+    min-width: var(--breadcrumb-size);
+    display: block;
+    line-height: var(--breadcrumb-size);
+    padding-left: calc(var(--breadcrumb-size) + 2px);
+    padding-right: calc(var(--breadcrumb-size) / 2 + var(--breadcrumb-size) / 6);
+}
+
+/* Icon styles */
+ul.breadcrumb li a .icon {
+    display: inline-block;
+    font-size: var(--breadcrumb-font-size);
+    font-weight: 600;
+}
+
+ul.breadcrumb li a .icon i::before {
+    margin: auto;
+    height: 16px;
+    width: 16px;
+}
+
+/* Text styles */
+ul.breadcrumb li a .text {
+    display: none;
+    opacity: 0;
+}
+
+/* Hover effect on breadcrumb items */
+ul.breadcrumb li a:hover {
+    background-color: var(--breadcrumb-color-hover);
+
+    .icon {
+        color: var(--breadcrumb-font-color-hover);
+    }
+
+}
+
+ul.breadcrumb li a:hover .text {
+    display: inline-block;
+    opacity: 1;
+    color: var(--breadcrumb-font-color-hover);
+}
+
+
+/* Styles for the last breadcrumb item */
+ul.breadcrumb li:last-child a {
+    padding: 0;
+}
+
+
+ul.breadcrumb li:last-child a .icon {
+    margin-top: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--breadcrumb-font-color);
+    font-style: normal;
+}
+
+ul.breadcrumb li:last-child:hover a {
+    background-color: var(--breadcrumb-color-hover-home);
+    .icon {
+        color: var(--breadcrumb-font-color-hover);
+    }
+}
+
+ul.breadcrumb li:first-child a {
+    background-color: var(--breadcrumb-color-hover);
+
+    .icon {
+        color: var(--breadcrumb-font-color-hover);
+    }
+
+    .text {
+        display: inline-block;
+        opacity: 1;
+        color: var(--breadcrumb-font-color-hover);
+    }
+}
+
+

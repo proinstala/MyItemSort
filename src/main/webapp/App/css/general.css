@@ -1,0 +1,338 @@
+
+/*
+Color Principal	    #FFA500	255, 165, 0
+Color Secundario    #005FA5	0, 95, 165
+Color Secundario +  #0073C8
+
+Color Énfasis       #FF4500	255, 69, 0
+Color Enfasis +     #FF641E
+
+Texto Principal	    #333333	51, 51, 51
+Texto Medio         #444444
+Texto Secundario    #666666	102, 102, 102
+
+Fondo Secundario    #F5F5F5	245, 245, 245
+Bordes/Líneas	    #CCCCCC	204, 204, 204
+Borde input form    #444444
+
+Color Blanco	    #FFFFFF	255, 255, 255
+Color Negro         #000000
+*/
+
+@font-face {
+    font-family: 'Inter';
+    src: url('../font/Inter/Inter-VariableFont_slnt,wght.ttf') format('truetype');
+    font-weight: 100 900;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Outfit';
+    src: url('../font/Outfit/Outfit-VariableFont_wght.ttf') format('truetype');
+    font-weight: 100 900;
+    font-style: normal;
+}
+
+:root {
+
+    --fuente_principal: 'Inter', sans-serif;
+    --fuente_auxiliar: 'Outfit', sans-serif;
+
+    --primario: #FFA500;
+    --secundario: #005FA5;
+
+    --secundario-brillo: #0073C8;
+
+    --fondo_primario: #FFFFFF;
+    --fondo_secundario: #F5F5F5;
+
+    --texto_principal: #333333;
+    --texto_medio: #444444;
+    --texto_secundario: #555555;
+
+    --enfasis: #FF4500;
+    --enfasis-brillo: #FF641E;
+
+    --bordes_lineas: #CCCCCC;
+
+    --borde_input_formulario: #444444;
+
+    --negro: #000000;
+    --blanco: #FFFFFF;
+    
+    --color_barra_footer: rgba(0,0,0,0.15); 
+    
+    --color_disponible: #00b100;
+    --color_no_disponible: #ff0050;
+}
+html, body {
+    margin: 0;
+    padding: 0;
+    /*height: 100vh;*/
+    /*overflow: hidden;*/ /* Evita la barra de desplazamiento */
+}
+
+html {
+    box-sizing: border-box; /*Configuracion para tamaño de cajas*/
+    font-size: 62.5%; /*Ajuste para REM. 1rem = 10px */
+}
+*, *:before, *:after {
+    box-sizing: inherit; /*Configuracion para tamaño de cajas*/
+}
+body {
+    font-size: 16px; /*Ajuste para REM, ahora 1 rem es 10px (1rem = 10px) */
+    font-style: normal;
+    font-family: var(--fuente_principal);
+
+    font-optical-sizing: auto;
+}
+
+/*Experimental: animaciones de transicion.  */
+@view-transition {
+    navigation: auto;
+}
+/*
+::view-transition-old(almacen_contenedor) {
+    animation-name: scaleOut;
+}
+::view-transition-new(almacen_contenedor) {
+    animation-name: scaleIn;
+}
+.almacen_contenedor {
+    view-transition-name: almacen_contenedor;
+}
+.almcen_card {
+    view-transition-name: almacen_contenedor;
+}
+*/
+
+/*
+::view-transition-old(transicion_img_login) {
+    animation-name: scaleOut;
+}
+
+::view-transition-new(transicion_img_login) {
+    animation-name: scaleIn;
+}
+
+.imagen--login {
+    view-transition-name: transicion_img_login;
+}
+
+.imagen--registrar {
+    view-transition-name: transicion_img_login;
+}
+*/
+
+@keyframes scaleIn {
+    from {
+        transform: scale(0);
+    }
+    to {
+        transform: scale(1);
+    }
+}
+@keyframes scaleOut {
+    from {
+        transform: scale(0);
+    }
+    to {
+        transform: scale(1);
+    }
+}
+
+
+
+/** Globales **/
+a {
+    /*text-decoration: none;*/
+    color: var(--texto_secundario)
+}
+h1, h2, h3, h4 {
+    font-family: var(--fuente_principal);
+    line-height: 1.2;
+    color: var(--texto_principal);
+    margin: 1rem 0;
+}
+h1 {
+    font-size: 4.8rem;
+}
+h2 {
+    font-size: 4rem;
+}
+h3 {
+    font-size: 3.2rem;
+}
+h4 {
+    font-size: 2.8rem;
+}
+img {
+    max-width: 100%;
+}
+p {
+    line-height: 1.5;
+    color: var(--texto_secundario)
+}
+label {
+    letter-spacing: 0.1rem;
+}
+
+/** Utilidades **/
+.no-margin {
+    margin:0;
+}
+.margin-top-1 {
+    margin-top: 1rem;
+}
+.margin-bottom-5 {
+    margin-bottom: 5rem
+}
+.margin-right-auto {
+    margin-right: auto;
+}
+.no-padding {
+    padding: 0;
+}
+.padidin-top-1 {
+    padding-top: 1rem;
+}
+.centrar-texto {
+    text-align: center;
+}
+.negrita {
+    font-weight: 700;
+}
+.grid-row-span-2 {
+    grid-row: span 2;
+}
+.max-width-120 {
+    max-width: 120rem;
+}
+.max-width-100 {
+    max-width: 100rem;
+}
+.max-width-80 {
+    max-width: 80rem;
+}
+.sticky {
+   position: sticky;
+   bottom: 0;
+}
+
+
+
+.transparente {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+
+.contenedor__general {
+    height: 100vh;
+    max-height: 100vh;
+    /*overflow: hidden;*/
+    margin: 0;
+    background: var(--primario);
+}
+
+@media (max-width: 800px), (max-height: 800px) {
+    .contenedor__general {
+        height: auto;
+        overflow: auto;
+    }
+}
+.contenedor {
+    height: 100vh;
+    display: grid;
+    margin: 0;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto 1fr auto; /* Barra superior, migas de pan, contenido, barra inferior */
+}
+
+.main {
+    padding: 0 2rem 1rem 2rem;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    justify-items: center;
+    overflow-y: auto;
+}
+
+.main--admin {
+    padding: 2rem;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 2fr;
+    justify-items: center;
+    overflow-y: auto;
+    gap: 2rem;
+}
+
+
+/* Contenedor de la vista identidad/registar.jsp */
+.contenedor__general--registrar {
+    /*overflow: hidden;*/
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5rem;
+    background: var(--primario);
+}
+@media (max-width: 800px), (max-height: 800px) {
+    .contenedor__general--registrar {
+        height: auto;
+        min-height: 100vh;
+        padding: 2rem;
+    }
+}
+
+
+
+/*Clase de label de error de validacion de formulario.*/
+label.error {
+    position: absolute; /* Coloca los mensajes de error en posición absoluta */
+    color: red !important;
+    font-size: 1.1rem !important;
+    margin-top: 0px; /* Ajusta el margen superior para separar del input */
+    bottom: -2rem;
+}
+
+
+/* TODO: Ajustar los colores al tema actual */
+button:disabled,
+button[disabled]
+button[disabled]:hover {
+    border: 1px solid #999999 !important;
+    background-color: #cccccc !important;
+    color: #666666 !important;
+    font-weight: normal !important;
+    cursor: initial !important;
+}
+
+/* TODO: Ajustar los colores al tema actual */
+input[disabled],
+input:disabled,
+select[disabled],
+select:disabled,
+option[disabled],
+option:disabled,
+textarea[disabled],
+textarea:disabled {
+    background-color: #FFFFFF !important;
+    color: #AAAAAA !important;
+    border-bottom-color: #AAAAAA !important;
+
+    i,
+    + label {
+        color: #AAAAAA !important;
+    }
+}
+
+
+

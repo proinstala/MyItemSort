@@ -1,0 +1,141 @@
+package io.proinstala.myitemsort.shared.consts.textos;
+
+/**
+ * Clase ConstParametros que contiene constantes para los parámetros utilizados en la gestión de usuarios.
+ */
+public class FormParametros {
+
+    /** Nombre de usuario. */
+    public static final String PARAM_USUARIO_USERNAME = "nombreUsuario";
+
+    /** Contraseña del usuario. */
+    public static final String PARAM_USUARIO_PASSWORD = "passwordUsuario";
+
+    /** Nueva Contraseña del usuario*/
+    public static final String PARAM_USUARIO_NUEVO_PASSWORD = "nuevoPassword";
+    
+    /** Nueva Contraseña del usuario*/
+    public static final String PARAM_USUARIO_CONFIRMACION_PASSWORD = "confirmPassword";
+
+    /** Rol del usuario. */
+    public static final String PARAM_USUARIO_ROL = "rolUsuario";
+
+    /** Nombre real del usuario. */
+    public static final String PARAM_USUARIO_NOMBRE = "nombreRealUsuario";
+
+    /** Apellidos del usuario. */
+    public static final String PARAM_USUARIO_APELLIDOS = "apellidoRealUsuario";
+
+    /** Correo electrónico del usuario. */
+    public static final String PARAM_USUARIO_EMAIL = "emailUsuario";
+
+    /** Imagen del usuario. */
+    public static final String PARAM_USUARIO_IMAGEN = "imagenUsuarioB64";
+    
+    
+    
+    //Direccion ----------------------------------------------------------------
+    
+    public static final String PARAM_DIRECCION_ID = "direccion";
+    
+    /** Nombre de la calle de la dirección. */
+    public static final String PARAM_DIRECCION_CALLE = "calle";
+    
+    /** Número de la dirección. */
+    public static final String PARAM_DIRECCION_NUMERO = "numero";
+    
+    /** Códgigo postal de la dirección. */
+    public static final String PARAM_DIRECCION_CODIGO_POSTAL = "codigoPostal";
+    
+    /** Localidad de la dirección. */
+    public static final String PARAM_DIRECCION_LOCALIDAD = "localidad";
+    
+    /** Provincia de la dirección. */
+    public static final String PARAM_DIRECCION_PROVINCIA = "provincia";
+    
+    
+    //Provincia ----------------------------------------------------------------
+    
+    /** Nombre de la provincia. */
+    public static final String PARAM_PROVINCIA_NOMBRE = "nombre";
+    
+    
+    //Localidad ----------------------------------------------------------------
+    
+    /** Nombre de la localidad. */
+    public static final String PARAM_LOCALIDAD_NOMBRE = "nombre";
+    
+    /** Provincia de la localidad. */
+    public static final String PARAM_LOCALIDAD_PROVINCIA = "provincia";
+    
+    
+    //Contacto -----------------------------------------------------------------
+    public static final String PARAM_CONTACTO_NOMBRE = "nombre";
+    public static final String PARAM_CONTACTO_APELLIDO = "apellido";
+    public static final String PARAM_CONTACTO_PUESTO = "puesto";
+    public static final String PARAM_CONTACTO_TELEFONO = "telefono";
+    public static final String PARAM_CONTACTO_EMAIL = "email";
+    public static final String PARAM_CONTACTO_PROVEEDOR = "proveedor";
+    
+    //Puesto Trabajo -----------------------------------------------------------
+    public static final String PARAM_PUESTO_TRABAJO_NOMBRE = "nombre";
+    
+    //Proveedor ----------------------------------------------------------------
+    public static final String PARAM_PROVEEDOR_NOMBRE = "nombre";
+    public static final String PARAM_PROVEEDOR_DESCRIPCION = "descripcion";
+    public static final String PARAM_PROVEEDOR_PAGINA_WEB = "paginaWeb";
+    public static final String PARAM_PROVEEDOR_IMAGEN = "imagenProveedorB64";
+    public static final String PARAM_PROVEEDOR_DIRECCION = "direccion";
+    
+    //Tipo Emplazamiento -------------------------------------------------------
+    public static final String PARAM_TIPO_EMPLAZAMIENTO_NOMBRE = "nombre";
+    public static final String PARAM_TIPO_EMPLAZAMIENTO_DESCRIPCION = "descripcion";
+
+    //Almacen ----------------------------------------------------------------
+    public static final String PARAM_ALMACEN_NOMBRE = "nombre";
+    public static final String PARAM_ALMACEN_DESCRIPCION = "descripcion";
+    public static final String PARAM_ALMACEN_DIRECCION = "direccion";
+    
+    //Emplazamiento
+    public static final String PARAM_EMPLAZAMIENTO_NOMBRE = "nombre";
+    public static final String PARAM_EMPLAZAMIENTO_DESCRIPCION = "descripcion";
+    public static final String PARAM_EMPLAZAMIENTO_ALMACEN = "almacen";
+    public static final String PARAM_EMPLAZAMIENTO_TIPO = "tipo";
+    
+    //Existencia
+    public static final String PARAM_EXISTENCIA_ARTICULO = "articulo";
+    public static final String PARAM_EXISTENCIA_ARTICULO_ID = "idArticulo";
+    public static final String PARAM_EXISTENCIA_REFERENCIA = "referencia";
+    public static final String PARAM_EXISTENCIA_SKU = "sku";
+    public static final String PARAM_EXISTENCIA_PRECIO = "precio";
+    public static final String PARAM_EXISTENCIA_COMPRADOR = "comprador";
+    public static final String PARAM_EXISTENCIA_MARCA = "marca";
+    public static final String PARAM_EXISTENCIA_PROVEEDOR = "proveedor"; 
+    public static final String PARAM_EXISTENCIA_ARTICULO_PROVEEDOR = "articuloProveedor";
+    public static final String PARAM_EXISTENCIA_ALMACEN = "almacen";
+    public static final String PARAM_EXISTENCIA_EMPLAZAMIENTO = "emplazamiento";
+    public static final String PARAM_EXISTENCIA_TIPO_EPLAZAMIENTO = "tipoEmplazamiento";
+    public static final String PARAM_EXISTENCIA_NOMBRE_EPLAZAMIENTO = "nombreEmplazamiento";
+    public static final String PARAM_EXISTENCIA_DISPONIBILIDAD = "disponibilidad";
+    public static final String PARAM_EXISTENCIA_FECHA_COMPRA = "fechaCompra";
+    public static final String PARAM_EXISTENCIA_FECHA_NO_DISPONIBLE = "fechaNoDisponible";
+    public static final String PARAM_EXISTENCIA_ANOTACION = "anotacion";
+    
+    //Marca
+    public static final String PARAM_MARCA_NOMBRE = "nombre";
+    public static final String PARAM_MARCA_DESCRIPCION = "descripcion";
+    public static final String PARAM_MARCA_IMAGEN = "imagenMarcaB64";
+    
+    //Articulo
+    public static final String PARAM_ARTICULO_NOMBRE = "nombre";
+    public static final String PARAM_ARTICULO_DESCRIPCION = "descripcion";
+    public static final String PARAM_ARTICULO_REFERENCIA = "referencia";
+    public static final String PARAM_ARTICULO_MARCA = "marca";
+    public static final String PARAM_ARTICULO_MODELO = "modelo";
+    public static final String PARAM_ARTICULO_STOCK_MINIMO = "stockMinimo";
+    public static final String PARAM_ARTICULO_IMAGEN = "imagenArticuloB64";
+    public static final String PARAM_ARTICULO_PROVEEDOR_PRECIO = "precio";
+    public static final String PARAM_ARTICULO_PROVEEDOR_FECHA_PRECIO = "fechaPrecio";
+    public static final String PARAM_ARTICULO_PROVEEDOR_DISPONIBILIDAD = "disponibilidad";
+    public static final String PARAM_ARTICULO_PROVEEDOR_FECHA_NO_DISPONIBLE = "fechaNoDisponible";
+}
