@@ -13,6 +13,7 @@
     border: 1px solid black; /* Define un borde sólido negro */
     padding: 5px; /* Define el padding dentro de las celdas */
     text-align: left; /* Alinea el texto a la izquierda */
+    font-size: 1.4rem; /* Ajusta el tamaño del texto */
     
     &.texto--centrado {
         text-align: center;
@@ -26,13 +27,9 @@
     }
 }
 
-.tabla th {
-    border: 1px solid black; /* Define un borde sólido negro */
-}
 
 .tabla th {
-    background-color: var(--borde_input_formulario); /* Color de fondo para encabezados */
-    background-color: #ffc93b;
+    background-color: var(--tabla_th);
     position: relative;
     z-index: 1; /* Asegura que los encabezados estén por encima del contenido */
     color: black;
@@ -76,14 +73,9 @@
 
 .tabla tbody tr:hover {
     cursor: pointer;
-    background: #005FA5;
-    background: #0073C8;
-    background: rgba(0, 95, 165, 0.5);
+    background: var(--tabla_tr_hover);
     color: white;
-
 }
-
-
 
 .contenedor__tabla--botones {
     display: flex;
@@ -98,8 +90,8 @@
     top: -2rem;
 
     button {
-        width: 4rem;
-        height: 4rem;
+        width: 3.5rem;
+        height: 3.5rem;
         font-size: 2rem;
     }
 
@@ -111,14 +103,13 @@
 }
 
 
-
-/* Regla tabla usuarios */
-
 .tabla tbody tr.selected {
-    background: rgba(0, 95, 165, 1);
+    background: var(--tabla_tr_seleccionado);
     color: white;
 }
 
+
+/* Regla tabla usuarios */
 tr.user-deleted:not(.selected) {
     background: rgba(255, 0, 0, 0.10);
 }

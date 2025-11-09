@@ -46,9 +46,10 @@ public interface IArticuloService {
      * @param descripcion la descripcion o parte de la descripcion del artículo a buscar.
      * @param referencia la referencia o parte de la referencia del artículo a buscar.
      * @param marcaId el id de la marca del atículo a buscar.
+     * @param almacenId el identificador del almacén en el que se desea buscar artículos; si es -1, se ignora este filtro.
      * @return una lista de {@link ArticuloDTO} que coinciden con el criterio de búsqueda, o una lista vacía si no hay coincidencias.
      */
-    public List<ArticuloDTO> findArticulos(String nombre, String descripcion, String referencia, int marcaId);
+    public List<ArticuloDTO> findArticulos(String nombre, String descripcion, String referencia, int marcaId, int almacenId);
     
     /**
      * Crea un nuevo artículo en la base de datos.

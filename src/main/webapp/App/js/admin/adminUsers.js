@@ -4,15 +4,17 @@ import { mostrarMensaje, mostrarMensajeError, mostrarMensajeAdvertencia } from '
 // Configuración de las urls
 const URL_USER_EDIT = "admin/users/edit";
 
+const idBtnCancelar = "#btnCancelar";
+const idBtnModificar = "#btnModificar";
+
 // Usuario seleccionado
 let USER_SELECTED;
 
 
 $(document).ready(function () {
-    const btnModificar = document.querySelector('#btnModificar');
-    btnModificar.addEventListener('click', () => {
-        redireccion(URL_USER_EDIT + "/" + USER_SELECTED);
-    });
+    const btnModificar = document.querySelector(idBtnModificar);
+    const btnCancelar = document.querySelector(idBtnCancelar);
+    
 
     const buscarUsuario = document.querySelector('#buscarUsuario');
     buscarUsuario?.addEventListener('keyup', () => {
@@ -38,8 +40,15 @@ $(document).ready(function () {
             }
 
     });
-
-
+    
+    btnCancelar.addEventListener('click', () => {
+        window.location.href = "admin";
+    });
+    
+    btnModificar.addEventListener('click', () => {
+        redireccion(URL_USER_EDIT + "/" + USER_SELECTED);
+    });
+    
     onSeleccionarUserFromList(false);
 });
 

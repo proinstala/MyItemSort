@@ -134,6 +134,7 @@ public class FormParametros {
     public static final String PARAM_ARTICULO_MODELO = "modelo";
     public static final String PARAM_ARTICULO_STOCK_MINIMO = "stockMinimo";
     public static final String PARAM_ARTICULO_IMAGEN = "imagenArticuloB64";
+    public static final String PARAM_ARTICULO_ALMACEN = "almacen";
     public static final String PARAM_ARTICULO_PROVEEDOR_PRECIO = "precio";
     public static final String PARAM_ARTICULO_PROVEEDOR_FECHA_PRECIO = "fechaPrecio";
     public static final String PARAM_ARTICULO_PROVEEDOR_DISPONIBILIDAD = "disponibilidad";

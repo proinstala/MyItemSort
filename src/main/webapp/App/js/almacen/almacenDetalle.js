@@ -161,6 +161,7 @@ function fillFielsAlmacen(almacen) {
     
     fillFielsDireccion(almacen.direccion);
     rellenarTablaEmplazamientos(listaEmplazamientos);
+    console.log(listaEmplazamientos);
 }
 
 function fillFielsDireccion(direccion) {

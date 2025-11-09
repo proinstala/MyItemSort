@@ -29,29 +29,13 @@
     box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.25);
     transition: all 0.2s;
     position: relative;
-}
-
-
-.card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: var(--primario);
-    border-radius: 10px;
-    opacity: 0.10;
-    z-index: 0;
-}
-
-.card:hover::before {
-    opacity: 0.15;
+    background-color: var(--fondo_card);
 }
 
 .card:hover {
     box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.4);
     transform: scale(1.01);
+    background-color: var(--fondo_card_hover);
 }
 
 .card__link,
@@ -85,6 +69,7 @@
     font-weight: 400;
     color: #00000080;
     align-items: center;
+    font-size: 3rem;
 }
 
 .card__descripcion {
@@ -110,8 +95,4 @@
     }
 }
 
-#Emplazamientos {
-    & > h2 {
-        font-size: 3.3rem;
-    }
-}
+

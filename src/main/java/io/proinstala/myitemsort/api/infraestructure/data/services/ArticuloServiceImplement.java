@@ -34,6 +34,7 @@ public class ArticuloServiceImplement extends BaseMySql implements IArticuloServ
             FROM ARTICULO art
             INNER JOIN MARCA m ON art.marca_id = m.id
             LEFT JOIN EXISTENCIA e ON art.id = e.articulo_id AND e.disponible = true
+            LEFT JOIN EMPLAZAMIENTO emp ON e.emplazamiento_id = emp.id
             """;
     
     private static final String SQL_SELECT_ARTICULO_PROVEEDOR_BY_ARTICULO = 
@@ -254,7 +255,7 @@ public class ArticuloServiceImplement extends BaseMySql implements IArticuloServ
     }
 
     @Override
-    public List<ArticuloDTO> findArticulos(String nombre, String descripcion, String referencia, int marcaId) {
+    public List<ArticuloDTO> findArticulos(String nombre, String descripcion, String referencia, int marcaId, int almacenId) {
         List<ArticuloDTO> listaArticulos = new ArrayList<>();
         
         StringBuilder sql = new StringBuilder(SQL_SELECT_COMUN);
@@ -281,6 +282,10 @@ public class ArticuloServiceImplement extends BaseMySql implements IArticuloServ
             sql.append(" AND art.marca_id = ?");
         }
         
+        if (almacenId != -1) {
+        sql.append(" AND emp.almacen_id = ?");
+    }
+        
         sql.append(" GROUP BY art.id");
         
         try (Connection conexion = getConnection(); 
@@ -302,6 +307,10 @@ public class ArticuloServiceImplement extends BaseMySql implements IArticuloServ
             
             if (marcaId != -1) {
                 ps.setInt(index++, marcaId);
+            }
+            
+            if (almacenId != -1) {
+                ps.setInt(index++, almacenId);
             }
 
             try (ResultSet resultSet = ps.executeQuery()) {

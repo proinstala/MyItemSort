@@ -46,17 +46,20 @@ public class ArticuloControllerService extends BaseService {
         String nombre = actionController.server().getRequestParameter(FormParametros.PARAM_ARTICULO_NOMBRE, "");
         String descripcion = actionController.server().getRequestParameter(FormParametros.PARAM_ARTICULO_DESCRIPCION, "");
         String referencia = actionController.server().getRequestParameter(FormParametros.PARAM_ARTICULO_REFERENCIA, "");
-        String strIdmarca = actionController.server().getRequestParameter(FormParametros.PARAM_ARTICULO_MARCA, "");
+        String strIdmarca = actionController.server().getRequestParameter(FormParametros.PARAM_ARTICULO_MARCA, "-1");
+        String strIdAlmacen = actionController.server().getRequestParameter(FormParametros.PARAM_ARTICULO_ALMACEN, "-1");
         
         int idMarca = -1;
+        int idAlmacen = -1;
         try {
             idMarca = Integer.parseInt(strIdmarca);
+            idAlmacen = Integer.parseInt(strIdAlmacen);
         } catch (NumberFormatException e) {
             e.printStackTrace();
         }
         
 
-        listaArticuloDTO = articuloServiceImp.findArticulos(nombre, descripcion, referencia, idMarca);
+        listaArticuloDTO = articuloServiceImp.findArticulos(nombre, descripcion, referencia, idMarca, idAlmacen);
 
         if(listaArticuloDTO != null) {
             responseDTO = getResponseOk("OK", listaArticuloDTO, 0);

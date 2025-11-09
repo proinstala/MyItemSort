@@ -181,7 +181,6 @@ function getExistencias(idArticulo) {
                     return [];
                 } else {
                     const listaExistencias = response.data;
-                    console.log(listaExistencias);
                     return listaExistencias;
                 }
             })

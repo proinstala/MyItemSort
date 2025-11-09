@@ -40,6 +40,12 @@ Color Negro         #000000
 
     --primario: #FFA500;
     --secundario: #005FA5;
+    
+    --primario-transparente: #FFA5001A; /*10% de transparencia*/
+    --primario-transparente-hover: #FFA50026; /*15% de transparencia*/
+    
+    --fondo_card:  #FFC8641A;
+    --fondo_card_hover: #FFC86426;
 
     --secundario-brillo: #0073C8;
 
@@ -64,6 +70,10 @@ Color Negro         #000000
     
     --color_disponible: #00b100;
     --color_no_disponible: #ff0050;
+    
+    --tabla_tr_hover: #005FA580;
+    --tabla_th: #ffc93b;
+    --tabla_tr_seleccionado: var(--secundario);
 }
 html, body {
     margin: 0;
@@ -148,23 +158,29 @@ a {
     /*text-decoration: none;*/
     color: var(--texto_secundario)
 }
-h1, h2, h3, h4 {
+h1, h2, h3, h4, h5, h6 {
     font-family: var(--fuente_principal);
     line-height: 1.2;
     color: var(--texto_principal);
     margin: 1rem 0;
 }
 h1 {
-    font-size: 4.8rem;
-}
-h2 {
     font-size: 4rem;
 }
+h2 {
+    font-size: 3.5rem;
+}
 h3 {
-    font-size: 3.2rem;
+    font-size: 2.8rem;
 }
 h4 {
-    font-size: 2.8rem;
+    font-size: 2.4rem;
+}
+h5 {
+    font-size: 2rem;
+}
+h6 {
+    font-size: 1.8rem;
 }
 img {
     max-width: 100%;
