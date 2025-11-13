@@ -37,7 +37,7 @@
 
                 <div class="login__enlaces">
                     <a class="login__enlaces-enlace" href="<%=UrlIdentidad.REGISTRAR.getUri()%>">Crear usuario</a>
-                    <a class="login__enlaces-enlace" href="<%=UrlIdentidad.RECOVERY.getUri()%>">He olvidado mi password</a>
+                    
                 </div>
             </div>
 

@@ -17,9 +17,17 @@ let listaAlmacenes = [];
 document.addEventListener("DOMContentLoaded", function () {
     const btnBuscar = document.querySelector(idBtnBuscar);
     const btnDetalle = document.querySelector(idBtnDetalle);
+    const contenedorAlmacenes = document.querySelector(idContenedorAlmacenes);
+    const contenedorArticulos = document.querySelector(idContenedroArticulos);
     
     validarFormulario(idForm);
     cargarDatosIniciales();
+    
+    btnDetalle.addEventListener('click', () => {
+        const idAlmacen = contenedorAlmacenes.getAttribute('data-cardselected'); 
+        const idArticulo = contenedorArticulos.getAttribute('data-cardselected'); 
+        window.location.href = (`articulo/articulos/detalle/${idArticulo}`);
+    });
 });
 
 async function cargarDatosIniciales() {
@@ -38,7 +46,7 @@ function crearCardsAlmacenes() {
     const contenedorAlmacenes = document.querySelector(idContenedorAlmacenes);
 
     let cardsAlmacenes = listaAlmacenes.map( almacen => {
-        return `<div class="card__almacen" id=${almacen.id}>
+        return `<div class="card__almacen" id=${almacen.id} title="${almacen.descripcion ? almacen.descripcion : ""}">
                     <div>
                         <h5 class="card__almacen--titulo">${almacen.nombre}</h5>
                     </div>
@@ -59,14 +67,13 @@ function crearCardsAlmacenes() {
            const idAlmacen = contenedorAlmacenes.getAttribute('data-cardselected');
            if(card.id !== idAlmacen) {
                 contenedorAlmacenes.setAttribute('data-cardselected', card.id);
-                const cards = contenedorAlmacenes.querySelectorAll('.card__almacen'); 
                 cards.forEach(row => row.classList.remove("seleccionado"));
                 card.classList.add("seleccionado");
                 
                 const inputAlmacen = document.querySelector(idInputIdAlmacen);
                 inputAlmacen.value = card.id;
                 
-                //resertArticulos();
+                resertArticulos();
                 
                 getAlmacen(card.id);
            }
@@ -79,11 +86,6 @@ function crearCardsAlmacenes() {
     }
 }
 
-function resertArticulos() {
-    const contenedorArticulos = document.querySelector(idContenedroArticulos);
-    contenedorArticulos.innerHTML = "";
-    contenedorArticulos.setAttribute('data-cardselected', "-1");
-}
 
 function getAlmacenes() {
     const url = `api/almacen/almacenes`;
@@ -176,7 +178,7 @@ function fillContenedorArticulos(articulos) {
     const contenedorArticulos = document.querySelector(idContenedroArticulos);
     
     let cardsArticulos = articulos.map( articulo => {
-        return `<div class="card__articulo" id=${articulo.id}>
+        return `<div class="card__articulo" id=${articulo.id} title="${articulo.descripcion ? articulo.descripcion : ""}">
                     <div class="card__articulo--superior">
                         <div class="card__articulo--imagen">
                             <img src=${articulo.imagen ? articulo.imagen : "App/img/defaultArticulo.svg"} alt="Imagen Artículo"/>
@@ -198,4 +200,29 @@ function fillContenedorArticulos(articulos) {
     //poner evento a las tarjetas para que habilite el boton de detalle y marque la tajeta como seleccionada.
     
     //hacer
+    
+    cards.forEach(card => {
+       card.addEventListener('click', (event) => {
+           const card = event.currentTarget;
+           const idArticulo = contenedorArticulos.getAttribute('data-cardselected');
+           if(card.id !== idArticulo) {
+                contenedorArticulos.setAttribute('data-cardselected', card.id);
+                cards.forEach(row => row.classList.remove("seleccionado"));
+                card.classList.add("seleccionado");
+                habilitarDetalleArticulo(true);
+           }
+           
+       }); 
+    });
+}
+
+function resertArticulos() {
+    const contenedorArticulos = document.querySelector(idContenedroArticulos);
+    contenedorArticulos.innerHTML = "";
+    contenedorArticulos.setAttribute('data-cardselected', "-1");
+    habilitarDetalleArticulo(false);
+}
+
+function habilitarDetalleArticulo(hayCambios) {
+    $(idBtnDetalle).prop('disabled', !hayCambios);
 }

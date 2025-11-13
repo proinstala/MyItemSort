@@ -29,8 +29,6 @@
     List<CardDTO> tarjetas = new ArrayList<>();
 
     // Se agregan las tarjetas a la lista
-    tarjetas.add(new CardDTO("las la-map-marked-alt", "Direcciones", "Gestione todas las direcciones, provincias y localidades.", "direccion"));
-    tarjetas.add(new CardDTO("las la-envelope", "Email", "Configura todo lo referente a la configuración interna de email de la app.", "#"));
     tarjetas.add(new CardDTO("las la-users-cog", "Usuarios", "Visualiza y administra todos los usuarios registrado en la app.", UrlAdmin.USER_LISTA.getUri()));
 
     // Se agrega la lista a los atributos de la petición

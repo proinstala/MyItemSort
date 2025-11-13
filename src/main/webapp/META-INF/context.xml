@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Context path="/MyItemSort">
-  <Resource auth="Container" driverClassName="com.mysql.cj.jdbc.Driver" maxActive="100" maxIdle="30" maxWait="10000" name="jdbc/WHERE_FIND_DATA" password="12345" type="javax.sql.DataSource" url="jdbc:mysql://localhost:3306/WHERE_FIND_DATA" username="root"/>
+  <Resource auth="Container" driverClassName="com.mysql.cj.jdbc.Driver" maxActive="100" maxIdle="30" maxWait="10000" name="jdbc/MY_ITEM_SORT_DATA" password="1234" type="javax.sql.DataSource" url="jdbc:mysql://localhost:3306/MY_ITEM_SORT_DATA" username="myitemsort"/>
 </Context>

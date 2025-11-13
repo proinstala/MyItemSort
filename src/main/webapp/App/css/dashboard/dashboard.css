@@ -52,18 +52,20 @@
     box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.25);
     transition: all 0.2s;
     
+    border-style: solid;
+    border-width: 1px;
+    border-color: var(--borde_input_formulario);
+    
     &.seleccionado {
-        border-style: solid;
-        border-color: greenyellow;
+        
+        border-color: var(--secundario-brillo);
         border-width: 2px;
     }
 }
 
 .card__articulo:hover {
     box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.3);
-    background-color: var(--fondo_card_hover);
     background-color: var(--tabla_tr_hover);
-    
     transform: scale(1.01);
     cursor: pointer;
 }
@@ -120,10 +122,13 @@
     
     background-color: var(--fondo_card);
     
+    border-style: solid;
+    border-color: var(--borde_input_formulario);
+    border-width: 1px;
+    
     &.seleccionado {
-        border-style: solid;
-        border-color: greenyellow;
-        border-width: 2px;
+        border-color: var(--secundario-brillo);
+        border-width: 3px;
     }
 }
 

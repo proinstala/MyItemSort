@@ -41,7 +41,7 @@ public class BaseMySql {
             Context envContext = (Context) initContext.lookup("java:comp/env");
 
             // Devuelve el DataSource
-            DataSource ds = (DataSource) envContext.lookup("jdbc/WHERE_FIND_DATA");
+            DataSource ds = (DataSource) envContext.lookup("jdbc/MY_ITEM_SORT_DATA");
 
             // Devuelve la conexión
             return ds.getConnection();
