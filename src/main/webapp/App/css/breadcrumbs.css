@@ -33,6 +33,9 @@ https://icons8.com/line-awesome
     content: "\f4ff";
 }
 
+.breadcrumb li[data-id="licencia"] a span.icon i::before {
+    content: "\f25e";/*no funciona*/
+}
 
 .breadcrumb li[data-id="admin"] a span.icon i::before {
     content: "\f505";

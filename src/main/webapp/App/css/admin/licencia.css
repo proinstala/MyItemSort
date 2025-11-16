@@ -1,0 +1,47 @@
+
+.titulo_licencia {
+    text-align: center;
+    margin: 1rem 0 2rem 0;
+}
+
+.contenedor__licencia--imagen {
+    max-width: 50rem;
+    margin: 0 auto 2rem auto;
+}
+
+.contenedor__licencia--texto {
+    display: flex;
+    justify-content: center;
+
+
+    
+    
+    pre {
+        word-wrap: break-word;      /* Evita desbordes */
+        overflow-wrap: break-word;  /* Asegura ajuste en navegadores modernos */
+        background: #f7f7f7;
+        border: 1px solid #ccc;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        padding: 5rem;
+    }
+}
+
+@media (max-width: 900px) {
+    .contenedor__licencia--texto {
+        font-size: 1.3rem;
+        
+        pre {
+            padding: 2rem;
+        }
+    }
+}
+
+@media (max-width: 650px) {
+    .contenedor__licencia--texto {
+        font-size: 1rem;
+        
+        pre {
+            padding: 2rem;
+        }
+    }
+}

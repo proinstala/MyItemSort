@@ -30,6 +30,7 @@
 
     // Se agregan las tarjetas a la lista
     tarjetas.add(new CardDTO("las la-users-cog", "Usuarios", "Visualiza y administra todos los usuarios registrado en la app.", UrlAdmin.USER_LISTA.getUri()));
+    tarjetas.add(new CardDTO("lab la-creative-commons", "Licencia", "Visualiza licencia.", UrlAdmin.LICENSE.getUri()));
 
     // Se agrega la lista a los atributos de la petición
     request.setAttribute("cards", tarjetas);

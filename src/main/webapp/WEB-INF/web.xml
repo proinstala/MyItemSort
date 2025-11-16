@@ -60,6 +60,16 @@
         <servlet-name>adminIdentidadUserEditar</servlet-name>
         <url-pattern>/admin/users/edit/*</url-pattern>
     </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>licencia</servlet-name>
+        <jsp-file>/App/web/admin/licencia.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>licencia</servlet-name>
+        <url-pattern>/admin/licencia</url-pattern>
+    </servlet-mapping>
 
 
 <!-- Mapeo de las url referentes a la cuenta de usuario -->

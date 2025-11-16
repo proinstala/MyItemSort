@@ -110,6 +110,7 @@
 
         // Admin
         urlMappingName.put("admin".toLowerCase(), "Administrar");
+        urlMappingName.put("admin/licencia".toLowerCase(), "Licencia");
         urlMappingName.put("users".toLowerCase(), "Usuarios");
         urlMappingName.put("users/edit".toLowerCase(), "Modificar Usuario");
 
@@ -194,13 +195,15 @@
         <%
             String path = uriHome;
             //for (int i = 1; i < uriParts.length; i++)
-            for (int i = uriParts.length - 1; i >= 1; i--)
-            {
-                if (!uriParts[i].isEmpty())
-                {
-                    if (uriParts[i].equals("dashboard"))
-                    {
+            for (int i = uriParts.length - 1; i >= 1; i--) {
+                if (!uriParts[i].isEmpty()) {
+                    if (uriParts[i].equals("dashboard")) {
                         continue;
+                    }
+                    
+                    String clase = "las";
+                    if (uriParts[i].equals("licencia")) {
+                        clase = "lab";
                     }
 
                     path = getUrlMiga(uriParts, i, uriHome);
@@ -213,7 +216,7 @@
         %>
                         <li data-id="<%= uriParts[i] %>">
                             <a <%= link %>>
-                                <span class="icon"> <i class="las"></i></span>
+                                <span class="icon"> <i class="<%=clase%>"></i></span>
                                 <span class="text"><%= getTextoMiga(uriParts[i], path) %></span>
                             </a>
                         </li>

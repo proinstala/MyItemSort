@@ -2,7 +2,8 @@ package io.proinstala.myitemsort.shared.consts.urls.enums;
 
 public enum UrlAdmin {
     USER_LISTA("admin/users"),
-    USER_EDIT("admin/users/edit");
+    USER_EDIT("admin/users/edit"),
+    LICENSE("admin/licencia");
 
     // Variables de instancia
     private final String uri;
