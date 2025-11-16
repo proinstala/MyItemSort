@@ -123,7 +123,6 @@ function getAlmacen(idAlmacen) {
 }
 
 function fillFielsAlmacen(almacen) {
-    console.log(almacen);
     pintarGraficoEmplazamientos(almacen.listaEmplazamientos);
     const btnBuscarArticulos = document.querySelector(idBtnBuscar);
 
@@ -173,7 +172,6 @@ function validarFormulario(idForm) {
 }
 
 function fillContenedorArticulos(articulos) {
-    console.log(articulos);
     
     const contenedorArticulos = document.querySelector(idContenedroArticulos);
     
@@ -184,12 +182,12 @@ function fillContenedorArticulos(articulos) {
                             <img src=${articulo.imagen ? articulo.imagen : "App/img/defaultArticulo.svg"} alt="Imagen Artículo"/>
                         </div>
                         <div class="card__articulo--datos">
-                            <p><span class="negrita">Ref: ${articulo.referencia}</span></p>
-                            <p><span class="negrita">Marca: ${articulo.marca.nombre}</span></p>
-                            <p><span class="negrita">Stock: ${articulo.stockActual}</span></p>
+                            <p><span class="negrita">Ref:</span> ${articulo.referencia}</p>
+                            <p><span class="negrita">Marca:</span> ${articulo.marca.nombre}</p>
+                            <p><span class="negrita">Stock:</span> ${articulo.stockActual}</p>
                         </div>
                     </div>
-                    <div>${articulo.nombre}</div>
+                    <div class="card__articulo--nombre">${articulo.nombre}</div>
                 </div>`; 
     }).join('');
    

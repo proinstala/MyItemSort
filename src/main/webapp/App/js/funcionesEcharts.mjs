@@ -2,6 +2,20 @@
 import {DEFAULT_IMG, DISPONIBILIDAD} from './constantes.mjs';
 
 
+/**
+ * Obtiene el gráfico ECharts de un contenedor o lo inicializa si no existe.
+ * @param {string} idContenedor - ID del div donde se renderiza el gráfico
+ * @returns {echarts.ECharts} - instancia de ECharts
+ */
+function obtenerChart(idContenedor) {
+    const chartDom = document.getElementById(idContenedor);
+    let myChart = echarts.getInstanceByDom(chartDom);
+    if (!myChart) {
+        myChart = echarts.init(chartDom);
+    }
+    return myChart;
+}
+
 function pintarGraficoEmplazamientos(emplazamientos, idContenedor = 'graficoEmplazamientos') {
     //Preparar los datos
     const datos = emplazamientos
@@ -22,9 +36,7 @@ function pintarGraficoEmplazamientos(emplazamientos, idContenedor = 'graficoEmpl
             return total;
         }, 0);
 
-    // 2️⃣ Inicializar el gráfico
-    const chartDom = document.getElementById(idContenedor);
-    const myChart = echarts.init(chartDom);
+    const myChart = obtenerChart(idContenedor);
 
     //Opciones del gráfico
     const option = {
@@ -94,8 +106,10 @@ function pintarGraficoEmplazamientos(emplazamientos, idContenedor = 'graficoEmpl
                 },
                 label: {
                     show: true,
-                    formatter: '{b}: {d}%',
-                    fontSize: 14
+                    formatter: (params) => {
+                        return `${params.name}: ${params.percent.toFixed(1)}%`;
+                      },
+                    fontSize: 13
                 },
                 labelLine: {
                     show: true
@@ -104,10 +118,10 @@ function pintarGraficoEmplazamientos(emplazamientos, idContenedor = 'graficoEmpl
         ]
     };
 
-    // 4️⃣ Renderizar
+    //Renderizar
     myChart.setOption(option);
 
-    // 5️⃣ Ajustar tamaño si cambia la ventana
+    //Ajustar tamaño si cambia la ventana
     window.addEventListener('resize', () => myChart.resize());
 }
 

@@ -29,9 +29,9 @@
                 <div class="seccion">
                     <div class="contenedor__formulario formulario--4_filas" id="form_busqueda">
 
-                        <div class="contenedor__formulario--cabecera conBotones">
+                        <div class="">
                             <div>
-                                <h1>Artículos</h1>
+                                <h3 class="titulo--seccion">Artículos</h3>
                             </div>
                             
                         </div>
