@@ -13,6 +13,8 @@
     <link rel="stylesheet" href="App/css/personal-sweetAlert2.css?v=<%=AppSettings.APP_VERSION_JS%>" type="text/css"/>
     <link rel="stylesheet" href="App/css/general.css?v=<%=AppSettings.APP_VERSION_JS%>">
 
+    <link rel="icon" type="image/png" href="App/img/favicon.ico">
+    
     <title><%= request.getParameter("titleweb")%></title>
 </head>
 <body>

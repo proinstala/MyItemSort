@@ -6,6 +6,7 @@
 
     <link rel="stylesheet" href="App/css/identidad/login.css?v=<%=AppSettings.APP_VERSION_CSS%>">
     <link href="App/css/formulario.css?v=<%=AppSettings.APP_VERSION_CSS%>" rel="stylesheet" type="text/css"/>
+    
 
     <div class="contenedor__general--login">
         <div class="login">
@@ -29,10 +30,10 @@
 
             <!-- Parte derecha -->
             <div class="login__derecha">
-                <h1>Bienvenido<br>a<br>MyItemSort</h1>
+                <h1>Bienvenido</h1>
                 <p>Organiza, cataloga y encuentra tus artí­culos de manera rápida y eficiente.</p>
                 <div class="login__logo">
-                    <img src="App/img/caja.png" alt="caja carton">
+                    <img src="App/img/logo_mis_3.png" alt="logo app">
                 </div>
 
                 <div class="login__enlaces">
